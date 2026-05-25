@@ -9,7 +9,7 @@ To run these scripts
 - create a subfolder called `tables/` outside the scripts folder
 - create a subfolder called `figures/` outside the scripts folder
 
-Your working directory should have four subfolders in it:
+Your working directory should have five subfolders in it:
 - `params/` which contains the two parameter files
 - `scripts/` containing all the scripts in the repository
 - `results/` which will contain the models (`.Rdata` files)
