@@ -1,17 +1,20 @@
 # Imitation and Differentiation in News Coverage in the US
 Replication scripts for imitation and differentiation in news production project by Subhayan Mukerjee, Tian Yang, and Yilang Peng.
 
-Download the derived data from the OSF repo of the original study: https://osf.io/htve7/
-
 To run these scripts
-- change the `data_folder` variable to reflect the path to the folder that contains all the `.csv` files (downloaded from the above repo)
+- set the working directory for all scripts to the parent folder of the `scripts/` folder
+- update the path to the downloaded files in `params/params_joc_60-seasons.json` and `params/params_joc_60-seasons.json`
+- if needed, change the path to the data folder in the first `read_csv` function call
+- create a subfolder called `results/` outside the scripts folder
 - create a subfolder called `tables/` outside the scripts folder
 - create a subfolder called `figures/` outside the scripts folder
 
-Your working directory should have three subfolders in it:
+Your working directory should have four subfolders in it:
+- `params/` which contains the two parameter files
 - `scripts/` containing all the scripts in the repository
-- `tables/` which will contain the results (as `.tex` tables) 
-- `figures/` which will contain the plots (as `.svg` images)
+- `results/` which will contain the models (`.Rdata` files)
+- `tables/` which will contain all the tables (`.tex` files)
+- `figures/` which will contain the plots (as `.svg` or `.pdf` files)
 
 Details about the scripts are as follows:
 
