@@ -24,22 +24,22 @@ The main findings are based on the following five scripts.
 
 Various robustness tests are executed in scripts following the naming pattern `0[1-5]R-*.R`
 A robustness test using an alternative media slant score (from Ad Fontes media) can be conducted by running the following scripts:
-- 04R_LR-QAP_adfontes.R
-- 05R_LR-QAP-2_adfontes.R
+- `04R_LR-QAP_adfontes.R`
+- `05R_LR-QAP-2_adfontes.R`
 
 A robustness test using looser definitions of topics will require you to run the following scripts in sequence (since the intermedia influence estimation also changes, as the topics change)
-- 01R_estimate-intermedia-influence_10seasons.R
-- 02R_estimate-intermedia-influence-political_10seasons.R
-- 03R_estimate-intermedia-influence-entertainment_placebo.R
-- 04R_LR-QAP_10seasons.R
-- 05R_LR_QAP-2_10seasons.R
+- `01R_estimate-intermedia-influence_10seasons.R`
+- `02R_estimate-intermedia-influence-political_10seasons.R`
+- `03R_estimate-intermedia-influence-entertainment_placebo.R`
+- `04R_LR-QAP_10seasons.R`
+- `05R_LR_QAP-2_10seasons.R`
 
 A placebo test using negative lag can be executed by running the following scripts in sequence:
-- 01R_estimate-intermedia-influence_placebo.R
-- 02R-estimate-intermedia-influence-political_placebo.R
-- 03R_estimate-intermedia-influence-entertainment_placebo.R
-- 04R_LR-QAP_placebo.R
-- 05R_LR-QAP-2_placebo.R
+- `01R_estimate-intermedia-influence_placebo.R`
+- `02R-estimate-intermedia-influence-political_placebo.R`
+- `03R_estimate-intermedia-influence-entertainment_placebo.R`
+- `04R_LR-QAP_placebo.R`
+- `05R_LR-QAP-2_placebo.R`
 
 Other scripts include those used for making specific visualizations (for e.g. `06_heatmap-viz.R` and `07_scatterplot-viz.R`), auxiliary files for generating Latex table (`08_generate-latex-tables1.R` and 09_generate-latex-tables2.R`) and generating descriptive statistics that are reported in the supplementary file (`10_descriptive_media_details.R`).
 
