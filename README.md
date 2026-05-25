@@ -41,6 +41,6 @@ A placebo test using negative lag can be executed by running the following scrip
 - `04R_LR-QAP_placebo.R`
 - `05R_LR-QAP-2_placebo.R`
 
-Other scripts include those used for making specific visualizations (for e.g. `06_heatmap-viz.R` and `07_scatterplot-viz.R`), auxiliary files for generating Latex table (`08_generate-latex-tables1.R` and 09_generate-latex-tables2.R`) and generating descriptive statistics that are reported in the supplementary file (`10_descriptive_media_details.R`).
+Other scripts include those used for making specific visualizations (for e.g. `06_heatmap-viz.R` and `07_scatterplot-viz.R`), auxiliary files for generating Latex table (e.g., `08_generate-latex-tables1.R` and `09_generate-latex-tables2.R`) and generating descriptive statistics that are reported in the supplementary file (`10_descriptive_media_details.R`).
 
 
