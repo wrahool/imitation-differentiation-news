@@ -9,9 +9,10 @@ To run these scripts
 - create a subfolder called `tables/` outside the scripts folder
 - create a subfolder called `figures/` outside the scripts folder
 
-Your working directory should have five subfolders in it:
+Your working directory should have six subfolders in it:
 - `params/` which contains the two parameter files (`params_60-seasons.json` is for the main analysis, and `params_10-seasons.json` is for one of the robustness tests. Note: these files only contain two parameters each which may be hard-coded into the scripts, but has been retained due to legacy reasons.)
 - `scripts/` containing all the scripts in the repository
+- `auxiliary/` which contains additional non-data files that are needed for analysis (for e.g. media bias scores, optimal number of topics per season, outlet name mappings etc), and some intermediate output files which are produced by `01_estimate-intermedia-influence.R`, `02_estimate-intermedia-influence-political.R`, and `03_estimate-intermedia-influence-entertainment.R`, which are used in subsequent scripts.
 - `results/` which will contain the models (`.Rdata` files)
 - `tables/` which will contain all the tables (`.tex` files)
 - `figures/` which will contain the plots (as `.svg` or `.pdf` files)
