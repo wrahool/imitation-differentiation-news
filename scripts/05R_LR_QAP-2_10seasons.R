@@ -25,18 +25,18 @@ res_e <- read_csv("auxiliary/inter-media-influence-entertainment_10seasons.csv")
 
 media_label_map <- read_csv("auxiliary/media_label_map.csv")
 media_details_tbl <- read_csv("auxiliary/media_language.csv")
-media_ideology <- read_csv("auxiliary/media_ideo2.csv")
+media_ideology <- read_csv("auxiliary/media_ideo.csv")
 
 media_details <- media_label_map |>
   inner_join(media_details_tbl, by = c("label" = "media")) |>
   select(n, label, short_name)
 
 media_ideology <- media_ideology %>%
-  inner_join(media_label_map, by = c("media" = "label")) %>%
-  select(media, short_name, ideo)
+  inner_join(media_label_map) %>%
+  select(media, label, short_name, ideo)
 
 media_details <- media_details |>
-  inner_join(media_ideology, by = c("label" = "media")) |>
+  inner_join(media_ideology) |>
   select(n, label, ideo)
 
 # number of possible directed pairs of media outlets
@@ -390,7 +390,7 @@ summary(model_neg_asym_ent2B)
 # nothing is significant
 
 # Combine all QAP correlation results into a list
-qap_asym_neg_adfontes <- list("LL baseline All A" = model_neg_asym1A,
+qap_asym_neg_10seasons <- list("LL baseline All A" = model_neg_asym1A,
                                "LL baseline All B" = model_neg_asym1B,
                                "RR baseline All A" =  model_neg_asym2A,
                                "RR baseline All B" =  model_neg_asym2B,
@@ -405,5 +405,5 @@ qap_asym_neg_adfontes <- list("LL baseline All A" = model_neg_asym1A,
                                "RR baseline Entertainment A" = model_neg_asym_ent2A,
                                "RR baseline Entertainment B" = model_neg_asym_ent2B)
 
-save(qap_asym_neg_adfontes,
-     file = "results/new_qap_neg_asymmetry_results-adfontes.RData")
+save(qap_asym_neg_10seasons,
+     file = "results/new_qap_neg_asymmetry_results-10seasons.RData")

@@ -1,5 +1,6 @@
 
-# This script tests the liberal-conservative asymmetry
+# This script tests the liberal-conservative asymmetry in the effect of negative influence
+# produces Table 2
 # author: Subhayan Mukerjee
 
 
@@ -11,7 +12,7 @@ library(broom)
 
 set.seed(9)
 
-setwd("path/to/parent/folder/of/scripts/folder")
+setwd("C:/Users/Subhayan/Work/intermedia-influence/")
 
 
 # main files
@@ -98,8 +99,8 @@ Y_mat <- lag1_tbl %>%
 rownames(Y_mat) <- colnames(Y_mat) <- all_outlets
 
 # Create the binary matrix
-# 1 = Significant Positive Influence, 0 = Negative or No Influence
-Y_pos_binary <- ifelse(Y_mat < 0, 1, 0)
+# 1 = Significant Negative Influence, 0 = Positive or No Influence
+Y_neg_binary <- ifelse(Y_mat < 0, 1, 0)
 
 # Helper function to keep it clean
 make_categorical_matrix <- function(target_category) {
@@ -118,44 +119,54 @@ X_RL <- make_categorical_matrix("cons_lib")
 X_RR <- make_categorical_matrix("cons_cons")
 X_LL <- make_categorical_matrix("lib_lib")
 
-# do left outlets imitate themselves more than they imitate the right?
+# do left outlets differentiate more from right than they do form the left?
 
-model_pos_asym1A <- netlogit(Y_pos_binary, 
-                             list(LL = X_LL, LR = X_LR, RR = X_RR, recip = t(Y_pos_binary)), 
+model_neg_asym1A <- netlogit(Y_neg_binary, 
+                             list(LR = X_LR, RL = X_RL, RR = X_RR, recip = t(Y_neg_binary)),
+                             nullhyp = "qap",
                              reps = 1000)
 
-summary(model_pos_asym1A)
+summary(model_neg_asym1A)
 
-# baseline is L outlets imitating the R
-# x1 (LL): L outlets imitating themselves more than they imitate R outlets
+# baseline is L outlets differentiating from L
+# x2 (RL): L outlets differentiate from R outlets more than they do from L outlets
+# estimate = 1.46, 4.3 times more, p ~ 0
 
 # without reciprocity
-model_pos_asym1B <- netlogit(Y_pos_binary, 
-                             list(LL = X_LL, LR = X_LR, RR = X_RR), 
+model_neg_asym1B <- netlogit(Y_neg_binary, 
+                             list(LR = X_LR, RL = X_RL, RR = X_RR),
+                             nullhyp = "qap",
                              reps = 1000)
 
-summary(model_pos_asym1B)
+summary(model_neg_asym1B)
 
-# x1 (LL): L outlets imitate L outlets than they do imitate R outlets
+# baseline is L outlets differentiating from L
+# x2 (RL): L outlets differentiate from R outlets more than they do from L outlets
+# estimate = 1.46, 4.3 times more, p ~ 0
 
-# do right outlets imitate themselves more than they imitate the left? 
-model_pos_asym2A <- netlogit(Y_pos_binary, 
-                             list(RR = X_RR, RL = X_RL, LL = X_LL, recip = t(Y_pos_binary)), 
+# x2 (RL): L outlets differentiate more from R outlets than they do from L outlets
+
+# do right outlets differentiate more from left than they do form the right? 
+model_neg_asym2A <- netlogit(Y_neg_binary, 
+                             list(LR = X_LR, RL = X_RL, LL = X_LL, recip = t(Y_neg_binary)), 
+                             nullhyp = "qap",
                              reps = 1000)
 
-summary(model_pos_asym2A)
+summary(model_neg_asym2A)
 
-# baseline is R imitating L
-# x1 (RR): R outlets do not imitate R any more than they imitate L
+# baseline is R outlets differentiating from R
+# x1 (LR): R outlets do not differentiate from L outlets any more than they do from R outlets. Estimate = 1.18, 3.2 times more, but p =  0.139
 
 # without reciprocity
-model_pos_asym2B <- netlogit(Y_pos_binary, 
-                             list(RR = X_RR, RL = X_RL, LL = X_LL), 
+model_neg_asym2B <- netlogit(Y_neg_binary, 
+                             list(LR = X_LR, RL = X_RL, LL = X_LL), 
+                             nullhyp = "qap",
                              reps = 1000)
 
-summary(model_pos_asym2B)
+summary(model_neg_asym2B)
 
-# x1 (RR): R outlets do not imitate R any more than they imitate L
+# baseline is R outlets differentiating from R
+# x1 (LR): R outlets do differentiate from L outlets significantly more than they do (but only if you donot control for reciprocity) from R outlets. Estimate = 2.56, 12.9 times more, p = 0.026
 
 # ------------------------------------------------
 
@@ -214,8 +225,8 @@ Y_mat_pol <- lag1_tbl %>%
 rownames(Y_mat_pol) <- colnames(Y_mat_pol) <- all_outlets
 
 # Create the binary matrix
-# 1 = Significant Positive Influence, 0 = Negative or No Influence
-Y_pos_binary_pol <- ifelse(Y_mat_pol > 0, 1, 0)
+# 1 = Significant Negative Influence, 0 = Positive or No Influence
+Y_neg_binary_pol <- ifelse(Y_mat_pol < 0, 1, 0)
 
 # Helper function to keep it clean
 make_categorical_matrix <- function(target_category) {
@@ -234,44 +245,53 @@ X_RL <- make_categorical_matrix("cons_lib")
 X_RR <- make_categorical_matrix("cons_cons")
 X_LL <- make_categorical_matrix("lib_lib")
 
-# do left outlets imitate themselves more than than they imitate the R?
+# do left outlets differentiate more from right than they do form the left?
 
-model_pos_asym_pol1A <- netlogit(Y_pos_binary_pol, 
-                                 list(LL = X_LL, LR = X_LR, RR = X_RR, recip = t(Y_pos_binary_pol)), 
+model_neg_asym_pol1A <- netlogit(Y_neg_binary_pol, 
+                                 list(LR = X_LR, RL = X_RL, RR = X_RR, recip = t(Y_neg_binary_pol)), 
+                                 nullhyp = "qap",
                                  reps = 1000)
 
-summary(model_pos_asym_pol1A)
+summary(model_neg_asym_pol1A)
 
-# baseline is L outlets imitating R
-# x1 (LL): L outlets imitate L outlets more than they imitate R outlets
+# baseline is L outlets differentiating from L
+# x2 (RL): L outlets differentiate from R outlets more than they do from L outlets
+# estimate is 1.48, 4.4  times,  p ~ 0.001
 
 # without reciprocity
-model_pos_asym_pol1B <- netlogit(Y_pos_binary_pol, 
-                                 list(LL = X_LL, LR = X_LR, RR = X_RR), 
+model_neg_asym_pol1B <- netlogit(Y_neg_binary_pol, 
+                                 list(LR = X_LR, RL = X_RL, RR = X_RR),
+                                 nullhyp = "qap",
                                  reps = 1000)
 
-summary(model_pos_asym_pol1B)
+summary(model_neg_asym_pol1B)
 
-# x2 (RL): L outlets do not imitate L outlets more than they imitate R outlets
+# x2 (RL): L outlets differentiate more from R outlets than they do from L outlets
+# baseline is L outlets differentiating from L
+# estimate is 1.55, 4.7 times,  p ~ 0
 
-# do right outlets imitate the right than they do the left? 
-model_pos_asym_pol2A <- netlogit(Y_pos_binary_pol, 
-                                 list(RR = X_RR, RL = X_RL, LL = X_LL, recip = t(Y_pos_binary_pol)), 
+# do right outlets differentiate more from left than they do form the right? 
+model_neg_asym_pol2A <- netlogit(Y_neg_binary_pol, 
+                                 list(LR = X_LR, RL = X_RL, LL = X_LL, recip = t(Y_neg_binary_pol)),
+                                 nullhyp = "qap",
                                  reps = 1000)
 
-summary(model_pos_asym_pol2A)
+summary(model_neg_asym_pol2A)
 
-# baseline is R outlets imitating L
-# x1 (RR): R outlets do not differentiate from L outlets any more than they do from R outlets
+# baseline is R outlets differentiating from R
+# x1 (LR): R outlets do not differentiate from L outlets any more than they do from R outlets
+# estimate = 0.9, 2.46 times, but p is 0.213
 
 # without reciprocity
-model_pos_asym_pol2B <- netlogit(Y_pos_binary_pol, 
-                                 list(RR = X_RR, RL = X_RL, LL = X_LL), 
+model_neg_asym_pol2B <- netlogit(Y_neg_binary_pol, 
+                                 list(LR = X_LR, RL = X_RL, LL = X_LL), 
+                                 nullhyp = "qap",
                                  reps = 1000)
 
-summary(model_pos_asym_pol2B)
+summary(model_neg_asym_pol2B)
 
-# x1 (RR): R outlets do not imitate R outlets any more than they do L outlets
+# x1 (LR): R outlets do not differentiate from L outlets any more than they do from R outlets
+# estimate = 2.07, 7.945 times, but p is 0.051
 
 # -----------------------------------------------------------
 
@@ -329,8 +349,8 @@ Y_mat_ent <- lag1_tbl %>%
 rownames(Y_mat_ent) <- colnames(Y_mat_ent) <- all_outlets
 
 # Create the binary matrix
-# 1 = Significant Positive Influence, 0 = Negative or No Influence
-Y_pos_binary_ent <- ifelse(Y_mat_ent > 0, 1, 0)
+# 1 = Significant Negative Influence, 0 = Positive or No Influence
+Y_neg_binary_ent <- ifelse(Y_mat_ent < 0, 1, 0)
 
 # Helper function to keep it clean
 make_categorical_matrix <- function(target_category) {
@@ -349,59 +369,82 @@ X_RL <- make_categorical_matrix("cons_lib")
 X_RR <- make_categorical_matrix("cons_cons")
 X_LL <- make_categorical_matrix("lib_lib")
 
-# do left outlets imitate the L, more than the R
+# do left outlets differentiate more from right than they do form the left?
 
-model_pos_asym_ent1A <- netlogit(Y_pos_binary_ent, 
-                                 list(LR = X_LL, RL = X_LR, RR = X_RR, recip = t(Y_pos_binary_ent)), 
+model_neg_asym_ent1A <- netlogit(Y_neg_binary_ent, 
+                                 list(LR = X_LR, RL = X_RL, RR = X_RR, recip = t(Y_neg_binary_ent)), 
+                                 nullhyp = "qap",
                                  reps = 1000)
 
-summary(model_pos_asym_ent1A)
+summary(model_neg_asym_ent1A)
 
+# baseline is L outlets differentiating from L
+# look at x2 (RL)
 # no significant effects
+#  estimate = -16.11, 1e-7 times, but p is 0.234
 
 # without reciprocity
-model_pos_asym_ent1B <- netlogit(Y_pos_binary_ent, 
-                                 list(LR = X_LL, RL = X_LR, RR = X_RR), 
+model_neg_asym_ent1B <- netlogit(Y_neg_binary_ent, 
+                                 list(LR = X_LR, RL = X_RL, RR = X_RR),
+                                 nullhyp = "qap",
                                  reps = 1000)
 
-summary(model_pos_asym_ent1B)
+summary(model_neg_asym_ent1B)
 
 # nothing is significant
+# look at x2 (RL)
+# estimate = -16.12,  9.9e-8 times, p =  0.247
 
-# do right outlets imitate themselves more than they do the left? 
-model_pos_asym_ent2A <- netlogit(Y_pos_binary_ent, 
-                                 list(RR = X_RR, RL = X_RL, LL = X_LL, recip = t(Y_pos_binary_ent)), 
+# do right outlets differentiate more from left than they do form the right? 
+model_neg_asym_ent2A <- netlogit(Y_neg_binary_ent, 
+                                 list(LR = X_LR, RL = X_RL, LL = X_LL, recip = t(Y_neg_binary_ent)), 
+                                 nullhyp = "qap",
                                  reps = 1000)
 
-summary(model_pos_asym_ent2A)
+summary(model_neg_asym_ent2A)
 
-# baseline is R imitating the L
+# baseline is R outlets differentiating from R
+# look at x1 (LR)
 # nothing is significant
+# estimate =  17.24, 3e+7 times, p = 0.688
 
 # without reciprocity
-model_pos_asym_ent2B <- netlogit(Y_pos_binary_ent, 
-                                 list(RR = X_RR, RL = X_RL, LL = X_LL, recip = t(Y_pos_binary_ent)), 
+model_neg_asym_ent2B <- netlogit(Y_neg_binary_ent, 
+                                 list(LR = X_LR, RL = X_RL, LL = X_LL),
+                                 nullhyp = "qap",
                                  reps = 1000)
 
-summary(model_pos_asym_ent2B)
+summary(model_neg_asym_ent2B)
 
+# baseline is R outlets  differentiating from R
+# look at x1 (LR)
 # nothing is significant
+# estimate = 17.2, 3.06e+7, p = 0.710
 
 # Combine all QAP correlation results into a list
-qap_asym_pos_60seasons <- list("RL baseline All A" = model_pos_asym1A,
-                               "RL baseline All B" = model_pos_asym1B,
-                               "LR baseline All A" =  model_pos_asym2A,
-                               "LR baseline All B" =  model_pos_asym2B,
+# A models include reciprocity control
+qap_asym_neg_60seasons <- list("LL_baseline_All" = model_neg_asym1A,
+                               "RR_baseline_All" =  model_neg_asym2A,
                                
-                               "RL baseline Political A" = model_pos_asym_pol1A,
-                               "RL baseline Political B" = model_pos_asym_pol1B,
-                               "LR baseline Political A" = model_pos_asym_pol2A,
-                               "LR baseline Political B" = model_pos_asym_pol2B,
+                               "LL_baseline_Political" = model_neg_asym_pol1A,
+                               "RR_baseline_Political" = model_neg_asym_pol2A,
                                
-                               "RL baseline Entertainment A" = model_pos_asym_ent1A,
-                               "RL baseline Entertainment B" = model_pos_asym_ent1B,
-                               "LR baseline Entertainment A" = model_pos_asym_ent2A,
-                               "LR baseline Entertainment B" = model_pos_asym_ent2B)
+                               "LL_baseline_Entertainment" = model_neg_asym_ent1A,
+                               "RR_baseline_Entertainment" = model_neg_asym_ent2A)
 
-save(qap_asym_pos_60seasons,
-     file = "results/new_qap_pos_asymmetry_results.RData")
+save(qap_asym_neg_60seasons,
+     file = "results/new_qap_neg_asymmetry_results-A.RData")
+
+# Combine all QAP correlation results into a list
+# B models exclude reciprocity control
+qap_asym_neg_60seasons <- list("LL_baseline_All" = model_neg_asym1B,
+                               "RR_baseline_All" =  model_neg_asym2B,
+                               
+                               "LL_baseline_Political" = model_neg_asym_pol1B,
+                               "RR_baseline_Political" = model_neg_asym_pol2B,
+                               
+                               "LL_baseline_Entertainment" = model_neg_asym_ent1B,
+                               "RR_baseline_Entertainment" = model_neg_asym_ent2B)
+
+save(qap_asym_neg_60seasons,
+     file = "results/new_qap_neg_asymmetry_results-B.RData")
