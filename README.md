@@ -3,14 +3,14 @@ Replication scripts for imitation and differentiation in news production project
 
 To run these scripts
 - set the working directory for all scripts to the parent folder of the `scripts/` folder
-- update the path to the downloaded files in `params/params_joc_60-seasons.json` and `params/params_joc_60-seasons.json`
+- update the path to the downloaded files in `params/params_60-seasons.json` and `params/params_10-seasons.json`
 - if needed, change the path to the data folder in the first `read_csv` function call
 - create a subfolder called `results/` outside the scripts folder
 - create a subfolder called `tables/` outside the scripts folder
 - create a subfolder called `figures/` outside the scripts folder
 
 Your working directory should have five subfolders in it:
-- `params/` which contains the two parameter files
+- `params/` which contains the two parameter files (`params_60-seasons.json` is for the main analysis, and `params_10-seasons.json` is for one of the robustness tests. Note: these files only contain two parameters each which may be hard-coded into the scripts, but has been retained due to legacy reasons.)
 - `scripts/` containing all the scripts in the repository
 - `results/` which will contain the models (`.Rdata` files)
 - `tables/` which will contain all the tables (`.tex` files)
@@ -45,5 +45,7 @@ A placebo test using negative lag can be executed by running the following scrip
 - `05R_LR-QAP-2_placebo.R`
 
 Other scripts include those used for making specific visualizations (for e.g. `06_heatmap-viz.R` and `07_scatterplot-viz.R`), auxiliary files for generating Latex table (e.g., `08_generate-latex-tables1.R` and `09_generate-latex-tables2.R`) and generating descriptive statistics that are reported in the supplementary file (`10_descriptive_media_details.R`).
+
+
 
 
