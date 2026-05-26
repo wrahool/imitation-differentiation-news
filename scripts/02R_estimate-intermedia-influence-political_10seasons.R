@@ -12,7 +12,7 @@ library(tidymodels)
 
 setwd("path/to/parent/folder/of/scripts/folder")
 
-params <- fromJSON(file = "params/params_joc_10-seasons.json")
+params <- fromJSON(file = "params/params_10-seasons.json")
 
 all_seasons <- 1:params$n_seasons
 

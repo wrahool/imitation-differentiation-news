@@ -12,7 +12,7 @@ library(tidymodels)
 
 setwd("C:/Users/Subhayan/Work/intermedia-influence/")
 
-params <- fromJSON(file = "params/params_joc_10-seasons.json")
+params <- fromJSON(file = "params/params_10-seasons.json")
 
 list.files(glue("{params$topic_models_results_folder}final/topic_model/seasonal/{params$n_seasons}-seasons/modeling"))
 
